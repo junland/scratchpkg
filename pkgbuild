@@ -174,9 +174,9 @@ prepare_src() {
 				case $FILENAME in
 					*.tar|*.tar.gz|*.tar.Z|*.tgz|*.tar.bz2|*.tbz2|*.tar.xz|*.txz|*.tar.lzma|*.zip|*.rpm)
 						if [ $(type -p tar) ]; then
-						        COMMAND="tar -p -o -C $SRC -xf $SOURCE_DIR/$FILENAME"
+						        COMMAND="bsdtar -p -o -C $SRC -xf $SOURCE_DIR/$FILENAME"
 						else
-							COMMAND="bsdtar -p -o -C $SRC -xf $SOURCE_DIR/$FILENAME"
+							COMMAND="tar -p -o -C $SRC -xf $SOURCE_DIR/$FILENAME"
 						fi
 						MODE="Unpacking" ;;
 					*)
