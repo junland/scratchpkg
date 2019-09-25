@@ -6,7 +6,7 @@ _Fork of `scratchpkg` created by Emmett1_
 
 ## Description
 
-Package management scripts forked from [`scratchpkg`](https://github.com/venomlinux/scratchpkg) which is used by Venom Linux. It is now used as a simple refrence package management platform to bootstrap a minimal Linux system for [`BDK`](https://github.com/junland/bdk).
+Package management scripts forked from [`scratchpkg`](https://github.com/venomlinux/scratchpkg) which is used by Venom Linux. It is now used as a simple refrence package management platform to bootstrap a minimal Linux system for [`openBDK`](https://github.com/project-gemstone/openbdk).
 
 ## spkgbuild
 
