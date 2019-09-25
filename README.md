@@ -1,18 +1,12 @@
 # scratchpkg
 
-A package manager for Linux From Scratch.
+A simple package manager.
+
+_Fork of `scratchpkg` created by Emmett1_
 
 ## Description
 
-Scratchpkg is a package manager built in order to manage packages for the Linux From Scratch system/distro. This package manager
-is fully written in bash. The package building script uses the port system like in Arch's makepkg, CRUX's pkgmk and NuTyX's
-cards. Packages are built and installed into a temporary location using DESTDIR method and are afterwards compressed in a file 
-directory using tar.
-
-Installing the packaged tar means it is extracted into real system. After that all files extracted is recorded into an index
-directory. So scratchpkg will track all installed files. Scratchpkg can automatically resolve dependencies order. Scratchpkg
-reads the build script (spkgbuild) in the ports directory in order to get all necessary variables and functions before building
-them.
+Package management scripts forked from [`scratchpkg`](https://github.com/venomlinux/scratchpkg) which is used by Venom Linux. It is now used as a simple refrence package management platform to bootstrap a minimal Linux system for [`BDK`](https://github.com/junland/bdk).
 
 ## spkgbuild
 
@@ -48,7 +42,7 @@ You can also use headers (except for description, as it needs for search functio
     depends=(package1 package2 package3)
     noextract=(example.tar.gz foobar.tar.xz)
 
-*Note: When create new package, its recommended to build using fakeroot first to make sure the build script is not broken and leave untracked file inside system.*
+*Note: When creating a new package, its recommended to build using fakeroot first to make sure the build script is not broken and leave untracked file inside system.*
 
 #### spkgbuild format:
 

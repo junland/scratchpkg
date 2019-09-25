@@ -1,22 +1,7 @@
 #!/bin/bash
-#
-#  scratchpkg
-#
-#  Copyright (c) 2018 by Emmett1  (emmett1.2miligrams@gmail.com)
-#
-#  This program is free software: you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation, either version 3 of the License, or
-#  (at your option) any later version.
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#
-#  You should have received a copy of the GNU General Public License
-#  along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#
+# Copyright 2019, John Unland (Forked)
+# Copyright 2018, Emmett1  (emmett1.2miligrams@gmail.com)
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 msg() {
 	echo -e "==> $1"
@@ -486,6 +471,7 @@ parse_opts() {
 		-g |          --genmdsum) UPDATE_MDSUM=yes ;;
 		-o |          --download) DOWNLOAD_ONLY=yes ;;
 		-x |           --extract) EXTRACT_ONLY=yes ;;
+		-b |        --only-build) BUILD_ONLY=yes ;;
 		-w |         --keep-work) KEEP_WORK=yes ;;
 		-l |               --log) LOGGING=yes ;;
 		-h |              --help) SHOWHELP=yes ;;
@@ -522,6 +508,7 @@ Options:
   -g, --genmdsum            generate md5sum
   -o, --download            download only source file
   -x, --extract             extract only source file
+  -b, --build-only          build and package without downloading and extracting source             
   -w, --keep-work           keep working directory
   -l, --log                 log build process
   -h, --help                show this help message
@@ -626,6 +613,20 @@ main() {
 		prepare_src
 		KEEP_WORK=yes
 		abort 0
+	fi 
+
+	# build and package without downloading and extracting source
+	if [ "$BUILD_ONLY" ]; then
+		if [ -f "$PACKAGE_DIR/$PKGNAME" ] && [ ! "$FORCE_REBUILD" ]; then
+		    if [ ! "$INSTALL_PKG" ] && [ ! "$REINSTALL_PKG" ] && [ ! "$UPGRADE_PKG" ]; then
+			    echo "Package '$PKGNAME' is up-to-date."
+			    abort 0
+		    fi
+	    else
+            run_build
+		    packaging
+		    clearworkdir
+	    fi
 	fi
 	
 	# calculate & print md5sum
