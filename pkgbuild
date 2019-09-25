@@ -19,10 +19,10 @@ msgwarn() {
 	echo -e "==> WARNING: $1"
 }
 
-updatemdsum() {
+updateshasum() {
 	
 	if [ -z $source ]; then
-		msgwarn "source=() is empty, no need md5sum."
+		msgwarn "source=() is empty, no need sha256sum."
 		abort 0
 	fi
 		
@@ -53,19 +53,19 @@ updatemdsum() {
 		abort 1
 	fi
 	
-	echo -e "md5sum=($(md5sum $needupdatechecksum | awk '{ print $1 }'))"
+	echo -e "sha256sum=($(sha256sum $needupdatechecksum | awk '{ print $1 }'))"
 		
 }
 
-checkmdsum() {
+checkshasum() {
 	
-	if [ -n "$source" ] && [ -z "$md5sum" ]; then
-		msgerr "md5sum=() is empty, please provide it."
+	if [ -n "$source" ] && [ -z "$sha256sum" ]; then
+		msgerr "sha256sum=() is empty, please provide it."
 		abort 1
 	fi
 	
-	if [ "${#source[@]}" != "${#md5sum[@]}" ]; then
-		msgerr "Total source and md5sums different."
+	if [ "${#source[@]}" != "${#sha256sum[@]}" ]; then
+		msgerr "Total source and sha256sums different."
 		abort 1
 	fi
 	
@@ -79,15 +79,15 @@ checkmdsum() {
 		else
 			sourcename="${source[$s]}"
 		fi
-		sum=$(md5sum "$sourcename" | awk '{ print $1 }')
-		if [ "$sum" != "${md5sum[$s]}" ] && [ "SKIP" != "${md5sum[$s]}" ]; then
-			errormdsum+=($sourcename)
+		sum=$(sha256sum "$sourcename" | awk '{ print $1 }')
+		if [ "$sum" != "${sha256sum[$s]}" ] && [ "SKIP" != "${sha256sum[$s]}" ]; then
+			errorshasum+=($sourcename)
 		fi
 	done
 	
-	if [ "${#errormdsum[@]}" -gt 0 ]; then
-		msgerr "md5sum mismatch:"
-		for mismatch in ${errormdsum[@]}; do
+	if [ "${#errorshasum[@]}" -gt 0 ]; then
+		msgerr "sha256sum mismatch:"
+		for mismatch in ${errorshasum[@]}; do
 			msg2 "$mismatch"
 		done
 		abort 1
@@ -143,7 +143,7 @@ download_src() {
 prepare_src() {
 	local FILE FILENAME SRC_DIR
 	
-	[ "$IGNORE_MDSUM" ] || checkmdsum
+	[ "$IGNORE_shasum" ] || checkshasum
 	
 	SRC=$WORK_DIR/$name/src
 	PKG=$WORK_DIR/$name/pkg
@@ -467,8 +467,8 @@ parse_opts() {
 		-c |   --ignore-conflict) OPTS+=($1) ;;
 		-v |           --verbose) OPTS+=($1) ;;
 		-f |     --force-rebuild) FORCE_REBUILD=yes ;;
-		-m |        --skip-mdsum) IGNORE_MDSUM=yes ;;
-		-g |          --genmdsum) UPDATE_MDSUM=yes ;;
+		-m |        --skip-shasum) IGNORE_shasum=yes ;;
+		-g |          --genshasum) UPDATE_shasum=yes ;;
 		-o |          --download) DOWNLOAD_ONLY=yes ;;
 		-x |           --extract) EXTRACT_ONLY=yes ;;
 		-b |        --only-build) BUILD_ONLY=yes ;;
@@ -504,8 +504,8 @@ Options:
   -c, --ignore-conflict     ignore conflict when installing package
   -v, --verbose             verbose install process
   -f, --force-rebuild       rebuild package
-  -m, --skip-mdsum          skip md5sum checking
-  -g, --genmdsum            generate md5sum
+  -m, --skip-shasum          skip sha256sum checking
+  -g, --genshasum            generate sha256sum
   -o, --download            download only source file
   -x, --extract             extract only source file
   -b, --build-only          build and package without downloading and extracting source             
@@ -629,9 +629,9 @@ main() {
 	    fi
 	fi
 	
-	# calculate & print md5sum
-	if [ "$UPDATE_MDSUM" ]; then
-		updatemdsum
+	# calculate & print sha256sum
+	if [ "$UPDATE_shasum" ]; then
+		updateshasum
 		abort 0
 	fi
 	
@@ -664,10 +664,10 @@ export LC_ALL=C
 PKGBUILD_CONF="/etc/scratchpkg.conf"
 PKGBUILD_BSCRIPT="spkgbuild"
 
-SOURCE_DIR="/var/cache/scratchpkg/sources"
+SOURCE_DIR="$(pwd)"
 PACKAGE_DIR="/var/cache/scratchpkg/packages"
 LOG_DIR="/var/cache/scratchpkg/log"
-WORK_DIR="/var/cache/scratchpkg/work"
+WORK_DIR="$(pwd)"
 DOWNLOAD_PROG="wget"
 COMPRESSION_MODE="xz"
 
