@@ -623,7 +623,7 @@ main() {
 			    abort 0
 		    fi
 	    else
-            run_build
+                    run_build
 		    packaging
 		    clearworkdir
 	    fi
