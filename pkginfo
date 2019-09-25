@@ -1,4 +1,7 @@
 #!/bin/bash
+# Copyright 2019, John Unland (Forked)
+# Copyright 2018, Emmett1  (emmett1.2miligrams@gmail.com)
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 msg() {
 	echo "$CMD: $*"
