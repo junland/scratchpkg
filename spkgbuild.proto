@@ -9,7 +9,7 @@ release=1
 options=()
 noextract=()
 source=()
-md5sum=()
+sha256sum=()
 
 build() {
 	cd $name-$version

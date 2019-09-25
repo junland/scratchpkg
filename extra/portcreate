@@ -19,7 +19,7 @@ options=()
 noextract=()
 backup=()
 source=()
-md5sum=()
+sha256sum=()
 
 build() {
 	cd \$name-\$version

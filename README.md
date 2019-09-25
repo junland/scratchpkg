@@ -95,8 +95,8 @@ Available options:
       -c, --ignore-conflict     ignore conflict when installing package
       -v, --verbose             verbose install process
       -f, --force-rebuild       rebuild package
-      -m, --ignore-mdsum        skip md5sum checking
-      -g, --genmdsum            generate md5sum
+      -m, --ignore-mdsum        skip sha256sum checking
+      -g, --genmdsum            generate sha256sum
       -o, --download-only       download only source file
       -e, --extract-only        extract only source file
       -w, --keep-work           keep working directory
@@ -207,7 +207,7 @@ orphan package, duplicate ports, list installed package and etc. Run `scratch he
     options for:		
         build
             -f, --force-rebuild    force rebuild
-            -m, --skip-mdsum       skip md5sum check for sources
+            -m, --skip-mdsum       skip sha256sum check for sources
             -d, --no-dep           skip dependency check
             -e, --extract          extract only
             -w, --keep-work        keep woring directory
