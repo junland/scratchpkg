@@ -508,7 +508,7 @@ Options:
   -g, --genshasum            generate sha256sum
   -o, --download            download only source file
   -x, --extract             extract only source file
-  -b, --build-only          build and package without downloading and extracting source             
+  -b, --only-build          build and package without downloading and extracting source             
   -w, --keep-work           keep working directory
   -l, --log                 log build process
   -h, --help                show this help message
