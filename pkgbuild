@@ -174,7 +174,7 @@ prepare_src() {
 				case $FILENAME in
 					*.tar|*.tar.gz|*.tar.Z|*.tgz|*.tar.bz2|*.tbz2|*.tar.xz|*.txz|*.tar.lzma|*.zip|*.rpm)
 						if [ $(type -p tar) ]; then
-						        COMMAND="bsdtar -p -o -C $SRC -xf $SOURCE_DIR/$FILENAME"
+						    COMMAND="bsdtar -p -o -C $SRC -xf $SOURCE_DIR/$FILENAME"
 						else
 							COMMAND="tar -p -o -C $SRC -xf $SOURCE_DIR/$FILENAME"
 						fi
@@ -203,6 +203,8 @@ run_build() {
 		msgerr "You must build package as root, or use fakeroot."
 		abort 1
 	fi
+
+	SRC=$WORK_DIR/$name/src
 	
 	msg "Start build '$name-$version-$release'."	
 	
