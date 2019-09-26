@@ -145,10 +145,8 @@ prepare_src() {
 	
 	[ "$IGNORE_shasum" ] || checkshasum
 	
-	SRC=$WORK_DIR/$name/src
-	PKG=$WORK_DIR/$name/pkg
-	
-	rm -fr $WORK_DIR/$name
+	SRC=$WORK_DIR/WORK/src
+	PKG=$WORK_DIR/WORK/pkg
 	
 	mkdir -p $SRC $PKG
 	
@@ -204,7 +202,7 @@ run_build() {
 		abort 1
 	fi
 
-	SRC=$WORK_DIR/$name/src
+	SRC=$WORK_DIR/WORK/src
 	
 	msg "Start build '$name-$version-$release'."	
 	
@@ -433,7 +431,7 @@ checkdir() {
 clearworkdir() {
 	if [ ! "$KEEP_WORK" ]; then
 		if [ "$name" ]; then
-			rm -fr $WORK_DIR/$name
+			rm -fr $WORK_DIR/WORK
 		fi
 	fi
 }
