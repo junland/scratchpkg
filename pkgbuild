@@ -431,7 +431,7 @@ checkdir() {
 clearworkdir() {
 	if [ ! "$KEEP_WORK" ]; then
 		if [ "$name" ]; then
-			rm -fr $WORK_DIR/WORK
+			rm -fr $WORK_DIR/$name
 		fi
 	fi
 }
