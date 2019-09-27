@@ -145,8 +145,8 @@ prepare_src() {
 	
 	[ "$IGNORE_shasum" ] || checkshasum
 	
-	SRC=$WORK_DIR/WORK/src
-	PKG=$WORK_DIR/WORK/pkg
+	SRC=$WORK_DIR/src
+	PKG=$WORK_DIR/pkg
 	
 	mkdir -p $SRC $PKG
 	
@@ -202,7 +202,7 @@ run_build() {
 		abort 1
 	fi
 
-	SRC=$WORK_DIR/WORK/src
+	SRC=$WORK_DIR/src
 	
 	msg "Start build '$name-$version-$release'."	
 	
@@ -667,7 +667,7 @@ PKGBUILD_BSCRIPT="spkgbuild"
 SOURCE_DIR="/var/cache/scratchpkg/sources"
 PACKAGE_DIR="/var/cache/scratchpkg/packages"
 LOG_DIR="/var/cache/scratchpkg/log"
-WORK_DIR="$(pwd)"
+WORK_DIR="/var/cache/scratchpkg/work"
 DOWNLOAD_PROG="wget"
 COMPRESSION_MODE="xz"
 
