@@ -145,8 +145,8 @@ prepare_src() {
 	
 	[ "$IGNORE_shasum" ] || checkshasum
 	
-	SRC=$WORK_DIR/src
-	PKG=$WORK_DIR/pkg
+	SRC=$WORK_DIR/WORK/src
+	PKG=$WORK_DIR/WORK/pkg
 	
 	mkdir -p $SRC $PKG
 	
@@ -202,7 +202,7 @@ run_build() {
 		abort 1
 	fi
 
-	SRC=$WORK_DIR/src
+	SRC=$WORK_DIR/WORK/src
 	
 	msg "Start build '$name-$version-$release'."	
 	
@@ -431,7 +431,7 @@ checkdir() {
 clearworkdir() {
 	if [ ! "$KEEP_WORK" ]; then
 		if [ "$name" ]; then
-			rm -fr $WORK_DIR/$name
+			rm -fr $WORK_DIR/WORK
 		fi
 	fi
 }
@@ -667,7 +667,7 @@ PKGBUILD_BSCRIPT="spkgbuild"
 SOURCE_DIR="/var/cache/scratchpkg/sources"
 PACKAGE_DIR="/var/cache/scratchpkg/packages"
 LOG_DIR="/var/cache/scratchpkg/log"
-WORK_DIR="/var/cache/scratchpkg/work"
+WORK_DIR="$(pwd)"
 DOWNLOAD_PROG="wget"
 COMPRESSION_MODE="xz"
 
