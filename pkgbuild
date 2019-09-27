@@ -148,6 +148,8 @@ prepare_src() {
 	SRC=$WORK_DIR/WORK/src
 	PKG=$WORK_DIR/WORK/pkg
 	
+	rm -fr $WORK_DIR/WORK
+	
 	mkdir -p $SRC $PKG
 	
 	if [ "${#source[@]}" -gt 0 ]; then
@@ -320,6 +322,8 @@ packaging() {
 	for f in ${INCLUDEINPKG[@]}; do
 		[ -f $f ] && install -m644 $f $PKG/.pkg$f
 	done
+	
+	PKG=$WORK_DIR/WORK/pkg
 	
 	pushd $PKG >/dev/null
 	
