@@ -205,6 +205,7 @@ run_build() {
 	fi
 
 	SRC=$WORK_DIR/WORK/src
+	PKG=$WORK_DIR/WORK/pkg
 	
 	msg "Start build '$name-$version-$release'."	
 	
@@ -322,8 +323,6 @@ packaging() {
 	for f in ${INCLUDEINPKG[@]}; do
 		[ -f $f ] && install -m644 $f $PKG/.pkg$f
 	done
-	
-	PKG=$WORK_DIR/WORK/pkg
 	
 	pushd $PKG >/dev/null
 	
