@@ -325,6 +325,8 @@ backupconf() {
 packaging() {
 	local FILE f
 	
+	msg "Start packaging of '$name-$version-$release'."
+	
 	for f in ${INCLUDEINPKG[@]}; do
 		[ -f $f ] && install -m644 $f $PKG/.pkg$f
 	done
