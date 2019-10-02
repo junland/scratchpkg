@@ -235,12 +235,12 @@ run_build() {
 
 removeemptydirs() {
         msg "Removing empty directories"
-	find . -type d -empty -delete	
+	find . -type d -empty -print0 | xargs -0 rm -rf	
 }
 
 removelibtool() {
         msg "Removing libtool archives"
-	find . ! -type d -name "*.la" -delete
+	find . -name "*.la" -print0 | xargs -0 rm -rf
 }
 
 strip_files() {
