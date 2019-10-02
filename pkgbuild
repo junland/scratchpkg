@@ -233,17 +233,21 @@ run_build() {
 	popd >/dev/null
 }
 
-removeemptydirs() {	
+removeemptydirs() {
+        msg "Removing empty directories"
 	find . -type d -empty -delete	
 }
 
-removelibtool() {	
+removelibtool() {
+        msg "Removing libtool archives"
 	find . ! -type d -name "*.la" -delete
 }
 
 strip_files() {
 	local xstrip
 	local FILTER
+	
+	msg "Stripping files"
 	
 	if [ "$nostrip" ]; then
 		for i in ${nostrip[@]}; do
@@ -278,6 +282,7 @@ strip_files() {
 }
 
 compressinfomanpages() {
+        msg "Compressing man pages"
 	find . -type f -path "*/man/man*/*" | while read -r file; do
 		if [ "$file" = "${file%%.gz}" ]; then
 			gzip -9 -f "$file"
