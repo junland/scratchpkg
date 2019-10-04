@@ -308,6 +308,6 @@ if [ "$NO_LD_CONFIG" != "yes" ]; then
     if [ -x "$ROOT_DIR"/sbin/ldconfig ]; then
 	$ROOT_DIR/sbin/ldconfig -r "$ROOT_DIR"/
     fi
-else
+fi
 
 ret 0
