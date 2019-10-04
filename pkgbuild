@@ -404,6 +404,9 @@ check_buildscript() {
 set_options() {
 	local OPT
 	
+	msg "OPTIONS Passed: ${OPTIONS[*]}"
+	msg "options Passed: ${options[*]}"
+	
 	for OPT in ${OPTIONS[@]} ${options[@]}; do
 		case $OPT in
 			libtool)     KEEP_LIBTOOL=1 ;;
@@ -420,6 +423,13 @@ set_options() {
 			!makeflags)  MAKE_FLAGS=0 ;;
 		esac
 	done
+	
+	msg "libtool: $KEEP_LIBTOOL"
+	msg "emptydir: $KEEP_EMPTYDIR"
+	msg "strip: $STRIP_BINARY"
+	msg "buildflags: $BUILD_FLAGS"
+	msg "makeflags: $MAKE_FLAGS"
+	msg "zipman: $ZIP_MAN"
 }
 
 checkdir() {
