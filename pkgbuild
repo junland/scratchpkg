@@ -22,7 +22,7 @@ msgwarn() {
 updateshasum() {
 	
 	if [ -z $source ]; then
-		msgwarn "source=() is empty, no need sha256sum."
+		msgwarn "source=() is empty, no need sha256sums."
 		abort 0
 	fi
 		
@@ -53,18 +53,18 @@ updateshasum() {
 		abort 1
 	fi
 	
-	echo -e "sha256sum=($(sha256sum $needupdatechecksum | awk '{ print $1 }'))"
+	echo -e "sha256sums=($(sha256sums $needupdatechecksum | awk '{ print $1 }'))"
 		
 }
 
 checkshasum() {
 	
-	if [ -n "$source" ] && [ -z "$sha256sum" ]; then
-		msgerr "sha256sum=() is empty, please provide it."
+	if [ -n "$source" ] && [ -z "$sha256sums" ]; then
+		msgerr "sha256sums=() is empty, please provide it."
 		abort 1
 	fi
 	
-	if [ "${#source[@]}" != "${#sha256sum[@]}" ]; then
+	if [ "${#source[@]}" != "${#sha256sums[@]}" ]; then
 		msgerr "Total source and sha256sums different."
 		abort 1
 	fi
@@ -79,8 +79,8 @@ checkshasum() {
 		else
 			sourcename="${source[$s]}"
 		fi
-		sum=$(sha256sum "$sourcename" | awk '{ print $1 }')
-		if [ "$sum" != "${sha256sum[$s]}" ] && [ "SKIP" != "${sha256sum[$s]}" ]; then
+		sum=$(sha256sums "$sourcename" | awk '{ print $1 }')
+		if [ "$sum" != "${sha256sums[$s]}" ] && [ "SKIP" != "${sha256sums[$s]}" ]; then
 			errorshasum+=($sourcename)
 		fi
 	done
