@@ -69,6 +69,8 @@ checkshasum() {
 		abort 1
 	fi
 	
+	msg "Checking sums..."
+	
 	for s in $(seq 0 $((${#source[@]} - 1))); do
 		if [ $(echo ${source[$s]} | grep -E "(ftp|http|https)://") ]; then
 			if [ $(echo ${source[$s]} | grep -E "::(ftp|http|https)://") ]; then
@@ -79,7 +81,7 @@ checkshasum() {
 		else
 			sourcename="${source[$s]}"
 		fi
-		sum=$(sha256sums "$sourcename" | awk '{ print $1 }')
+		sum=$(sha256sum "$sourcename" | awk '{ print $1 }')
 		if [ "$sum" != "${sha256sums[$s]}" ] && [ "SKIP" != "${sha256sums[$s]}" ]; then
 			errorshasum+=($sourcename)
 		fi
@@ -92,6 +94,8 @@ checkshasum() {
 		done
 		abort 1
 	fi
+	
+	msg "Sums OK"
 	
 }
 
