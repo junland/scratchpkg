@@ -514,8 +514,8 @@ Options:
   -c, --ignore-conflict     ignore conflict when installing package
   -v, --verbose             verbose install process
   -f, --force-rebuild       rebuild package
-  -m, --skip-shasum          skip sha256sum checking
-  -g, --genshasum            generate sha256sum
+  -m, --skip-shasum         skip sha256sum checking
+  -g, --genshasum           generate sha256sum
   -o, --download            download only source file
   -x, --extract             extract only source file
   -b, --only-build          build and package without downloading and extracting source             
@@ -674,7 +674,7 @@ export LC_ALL=C
 PKGBUILD_CONF="/etc/scratchpkg.conf"
 PKGBUILD_BSCRIPT="spkgbuild"
 
-SOURCE_DIR="$(pwd)/SOURCES"
+SOURCE_DIR="/var/cache/scratchpkg/sources"
 PACKAGE_DIR="/var/cache/scratchpkg/packages"
 LOG_DIR="/var/cache/scratchpkg/log"
 WORK_DIR="$(pwd)"
