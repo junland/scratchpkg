@@ -674,7 +674,7 @@ export LC_ALL=C
 PKGBUILD_CONF="/etc/scratchpkg.conf"
 PKGBUILD_BSCRIPT="spkgbuild"
 
-SOURCE_DIR="/var/cache/scratchpkg/sources"
+SOURCE_DIR="$(pwd)/SOURCES"
 PACKAGE_DIR="/var/cache/scratchpkg/packages"
 LOG_DIR="/var/cache/scratchpkg/log"
 WORK_DIR="$(pwd)"
