@@ -8,6 +8,11 @@ REVDEPD=/etc/revdep.d
 REVDEPCONF=/etc/revdep.conf
 
 mkdir -pv ${DESTDIR}{${BINDIR},${CONFDIR},${PORT_DIR},${REVDEPD}}
+mkdir -pv ${DESTDIR}${CACHE_DIR}/sources
+mkdir -pv ${DESTDIR}${CACHE_DIR}/packages
+mkdir -pv ${DESTDIR}${CACHE_DIR}/log
+mkdir -pv ${DESTDIR}${CACHE_DIR}/work
+
 install -m755 revdep pkgadd pkgdel pkgbuild pkgdeplist pkglibdepends scratch pkgbase ${DESTDIR}${BINDIR}
 install -m644 conf/scratchpkg.conf conf/scratchpkg.repo ${DESTDIR}${CONFDIR}
 install -m755 extra/* ${DESTDIR}${BINDIR}
