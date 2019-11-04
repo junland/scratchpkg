@@ -9,7 +9,10 @@ REVDEPD = $(PREFIX)/revdep.d
 REVDEPCONF = $(PREFIX)/revdep.conf
 
 install:
-  mkdir -pv $(DESTDIR){$(BINDIR),$(CONFDIR),$(PORT_DIR),$(REVDEPD)}
+  mkdir -pv $(DESTDIR)$(BINDIR)
+  mkdir -pv $(DESTDIR)$(CONFDIR)
+  mkdir -pv $(DESTDIR)$(PORT_DIR)
+  mkdir -pv $(DESTDIR)$(REVDEPD)
   mkdir -pv $(DESTDIR)$(CACHE_DIR)/sources
   mkdir -pv $(DESTDIR)$(CACHE_DIR)/packages
   mkdir -pv $(DESTDIR)$(CACHE_DIR)/log
