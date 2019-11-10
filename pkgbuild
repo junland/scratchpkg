@@ -408,6 +408,8 @@ check_buildscript() {
 set_options() {
 	local OPT
 	
+	[[ $VERBOSE = yes ]] && msg "Checking build options" || true
+	
 	for OPT in ${OPTIONS[@]} ${options[@]}; do
 		case $OPT in
 			libtool)     KEEP_LIBTOOL=1 ;;
@@ -424,6 +426,11 @@ set_options() {
 			!makeflags)  MAKE_FLAGS=0 ;;
 		esac
 	done
+	
+	[[ $VERBOSE = yes ]] && [[ $BUILD_FLAGS = 1 ]] && msg "Options set to export build flags" || true
+	[[ $VERBOSE = yes ]] && [[ $MAKE_FLAGS = 1 ]] && msg "Options set to export make flags" || true
+	[[ $VERBOSE = yes ]] && [[ $KEEP_LIBTOOL = 0 ]] && msg "Options set to remove libtool files" || true
+	[[ $VERBOSE = yes ]] && [[ $STRIP_BINARY = 1 ]] && msg "Options set to strip binary files" || true
 }
 
 checkdir() {
@@ -479,7 +486,7 @@ parse_opts() {
 		-u |           --upgrade) UPGRADE_PKG=yes; OPTS+=($1) ;;
 		-r |         --reinstall) REINSTALL_PKG=yes; OPTS+=($1) ;;
 		-c |   --ignore-conflict) OPTS+=($1) ;;
-		-v |           --verbose) OPTS+=($1) ;;
+		-v |           --verbose) VERBOSE=yes; OPTS+=($1) ;;
 		-f |     --force-rebuild) FORCE_REBUILD=yes ;;
 		-m |        --skip-shasum) IGNORE_shasum=yes ;;
 		-g |          --genshasum) UPDATE_shasum=yes ;;
