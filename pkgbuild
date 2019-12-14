@@ -210,25 +210,35 @@ run_build() {
 
 	SRC=$WORK_DIR/WORK/src
 	PKG=$WORK_DIR/WORK/pkg
-	
-	msg "Start build '$name-$version-$release'."	
+
+	if [ "$QUIET" = yes ]; then
+              msg "Starting build '$name-$version-$release'. (Silencing output, this may take a while to complete...)" 
+	else
+              msg "Starting build '$name-$version-$release'."
+	fi
 	
 	[ "$MAKE_FLAGS" = 1 ]  && export MAKEFLAGS       || unset MAKEFLAGS
 	[ "$BUILD_FLAGS" = 1 ] && export CFLAGS CXXFLAGS || unset CFLAGS CXXFLAGS
 	
 	pushd $SRC >/dev/null
 	
-	if [ "$LOGGING" = yes ]; then	
-		(
-			set -e -x; build 2>&1 | tee $LOG_DIR/$name-$version-$release.log
-			exit $PIPESTATUS
-		)
+	if [ "$LOGGING" = yes ]; then
+	        if [ "$QUIET" = yes ]; then
+                  (set -e -x; build > $LOG_DIR/$name-$version-$release.log; exit $PIPESTATUS)
+		fi
+
+		(set -e -x; build 2>&1 | tee $LOG_DIR/$name-$version-$release.log; exit $PIPESTATUS)
 	else
 		(set -e -x; build)
 	fi
 		
 	if [ $? != 0 ]; then
+	        if [ "$QUIET" = yes ]; then
+                      tail -n 100 LOG_DIR/$name-$version-$release.log
+	        else
+		
 		msgerr "Build '$name-$version-$release' failed."
+		
 		abort 1
 	else
 		msg "Build '$name-$version-$release' success."
@@ -495,6 +505,7 @@ parse_opts() {
 		-b |        --only-build) BUILD_ONLY=yes ;;
 		-w |         --keep-work) KEEP_WORK=yes ;;
 		-l |               --log) LOGGING=yes ;;
+		-q |               --quiet) QUIET=yes LOGGING=yes ;;
 		-h |              --help) SHOWHELP=yes ;;
 		         --no-preinstall) OPTS+=($1) ;;
 		        --no-postinstall) OPTS+=($1) ;;
@@ -532,6 +543,7 @@ Options:
   -b, --only-build          build and package without downloading and extracting source             
   -w, --keep-work           keep working directory
   -l, --log                 log build process
+  -q, --quiet               quietly build the package
   -h, --help                show this help message
       --config=<config>     use custom config file
       --srcdir=<path>       override directory path for sources
