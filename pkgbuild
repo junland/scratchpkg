@@ -235,7 +235,7 @@ run_build() {
 	if [ $? != 0 ]; then
 	        if [ "$QUIET" = yes ]; then
                       tail -n 100 LOG_DIR/$name-$version-$release.log
-	        else
+	        fi
 		
 		msgerr "Build '$name-$version-$release' failed."
 		
