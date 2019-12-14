@@ -224,6 +224,7 @@ run_build() {
 	
 	if [ "$LOGGING" = yes ]; then
 	        if [ "$QUIET" = yes ]; then
+		  msg "TESTING..."
                   (set -e -x; build > $LOG_DIR/$name-$version-$release.log; exit $PIPESTATUS)
 		fi
 
