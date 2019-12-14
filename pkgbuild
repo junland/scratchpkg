@@ -222,15 +222,12 @@ run_build() {
 	
 	pushd $SRC >/dev/null
 	
-	if [ "$LOGGING" = yes ]; then
-	        if [ "$QUIET" = yes ]; then
-		  msg "TESTING..."
-                  (set -e; build > $LOG_DIR/$name-$version-$release.log; exit $PIPESTATUS)
-		fi
-
-		(set -e -x; build 2>&1 | tee $LOG_DIR/$name-$version-$release.log; exit $PIPESTATUS)
+	if [ "$LOGGING" = yes ] && [ "$QUIET" != yes ]; then 
+	    (set -e -x; build 2>&1 | tee $LOG_DIR/$name-$version-$release.log; exit $PIPESTATUS)
+	elif [ "$LOGGING" = yes ] && [ "$QUIET" = yes ]; then
+	    (set -e -x; build &> $LOG_DIR/$name-$version-$release.log)
 	else
-		(set -e -x; build)
+	    (set -e -x; build)
 	fi
 		
 	if [ $? != 0 ]; then
